@@ -1,0 +1,2 @@
+# mediainfo
+/opt/media
