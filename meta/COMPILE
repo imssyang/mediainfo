@@ -1,0 +1,28 @@
+apt install libtinyxml2-dev libwxgtk3.0-dev
+
+cd mediainfo_AllInclusive/ZenLib
+mkdir build; cd build
+cmake -Wno-dev -G "Unix Makefiles" \
+  -DCMAKE_INSTALL_PREFIX=/opt/mediainfo \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DBUILD_SHARED_LIBS=ON \
+  ..
+
+cd mediainfo_AllInclusive/MediaInfoLib
+mkdir build; cd build
+cmake -Wno-dev -G "Unix Makefiles" \
+  -DCMAKE_INSTALL_PREFIX=/opt/mediainfo \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DBUILD_SHARED_LIBS=ON \
+  ..
+
+cd mediainfo_AllInclusive/wxWidgets
+./configure --prefix=/opt/mediainfo --enable-utf8
+make -j3
+
+cd mediainfo_AllInclusive/MediaInfo/Project/GNU/CLI
+./autogen.sh
+./configure --prefix=/opt/mediainfo --enable-shared
+make -j3
+
+
