@@ -1,23 +1,25 @@
 apt install libtinyxml2-dev libwxgtk3.0-dev
 
-cd mediainfo_AllInclusive/ZenLib
+cd mediainfo_AllInclusive/ZenLib/Project/CMake/build
 mkdir build; cd build
 cmake -Wno-dev -G "Unix Makefiles" \
   -DCMAKE_INSTALL_PREFIX=/opt/mediainfo \
   -DCMAKE_BUILD_TYPE=Release \
   -DBUILD_SHARED_LIBS=ON \
   ..
+chmod +x libzen.so.0.4.39
 
-cd mediainfo_AllInclusive/MediaInfoLib
+cd mediainfo_AllInclusive/MediaInfoLib/Project/CMake/build
 mkdir build; cd build
 cmake -Wno-dev -G "Unix Makefiles" \
   -DCMAKE_INSTALL_PREFIX=/opt/mediainfo \
   -DCMAKE_BUILD_TYPE=Release \
   -DBUILD_SHARED_LIBS=ON \
   ..
+chmod +x libmediainfo.so.0.2209.0
 
 cd mediainfo_AllInclusive/wxWidgets
-./configure --prefix=/opt/mediainfo --enable-utf8
+./configure --prefix=/opt/mediainfo --enable-utf8 --without-libtiff
 make -j3
 
 cd mediainfo_AllInclusive/MediaInfo/Project/GNU/CLI
@@ -25,4 +27,11 @@ cd mediainfo_AllInclusive/MediaInfo/Project/GNU/CLI
 ./configure --prefix=/opt/mediainfo --enable-shared
 make -j3
 
+cd mediainfo_AllInclusive/MediaInfo/Project/GNU/GUI
+./autogen.sh
+CFLAGS="-I/opt/libtiff/4.0.4/include" \
+  LDFLAGS="-L/opt/libtiff/4.0.4/lib" \
+  LIBS="-ltiff" \
+  ./configure --prefix=/opt/mediainfo --enable-shared
+make -j3
 
