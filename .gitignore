@@ -2,4 +2,10 @@ archive
 bin
 include
 lib
+sample/**/*.h264
+sample/**/*.h265
+sample/**/*.ts
+sample/**/*.mp4
+sample/**/*.flv
+sample/**/*.jpg
 share
